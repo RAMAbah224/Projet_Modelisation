@@ -4,23 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usager {
+
     private String numeroCompte;
     private String nip;
-    private List<Exemplaire> emprunts = new ArrayList<>();
+    private List<Emprunt> emprunts = new ArrayList<>();
 
     public Usager(String numeroCompte, String nip) {
         this.numeroCompte = numeroCompte;
         this.nip = nip;
     }
 
-    public String getNumeroCompte() { return numeroCompte; }
-    public String getNip() { return nip; }
+    public String getNumeroCompte() {
+        return numeroCompte;
+    }
 
-    public List<Exemplaire> getEmprunts() {
+    public String getNip() {
+        return nip;
+    }
+
+    public List<Emprunt> getEmprunts() {
         return emprunts;
     }
 
-    public void ajouterEmprunt(Exemplaire ex) {
-        emprunts.add(ex);
+    public void ajouterEmprunt(Emprunt emprunt) {
+        emprunts.add(emprunt);
     }
 }

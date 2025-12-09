@@ -1,10 +1,12 @@
 package ui;
 
 import model.Catalogue;
+import model.Emprunt;
 import model.Usager;
 import service.AuthService;
 import service.EmpruntService;
 
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class UIConsole {
@@ -52,5 +54,51 @@ public class UIConsole {
         }
 
         System.out.println("Fin des emprunts.");
+
+        genererRecu(usager);
+        sauvegarderRecu(usager);
+    }
+
+    private void genererRecu(Usager usager) {
+        System.out.println("\n===== REÇU D'EMPRUNT =====");
+        System.out.println("Usager : " + usager.getNumeroCompte());
+        System.out.println();
+
+        int i = 1;
+        for (Emprunt e : usager.getEmprunts()) {
+            System.out.println(i + ". "
+                    + e.getExemplaire().getLivre().getTitre()
+                    + " (retour : " + e.getDateRetour() + ")");
+            i++;
+        }
+
+        System.out.println("==========================\n");
+    }
+
+    private void sauvegarderRecu(Usager usager) {
+        try {
+            String nomFichier = "dist/recu_" + usager.getNumeroCompte() + ".txt";
+            PrintWriter writer = new PrintWriter(nomFichier);
+
+            writer.println("===== REÇU D'EMPRUNT =====");
+            writer.println("Usager : " + usager.getNumeroCompte());
+            writer.println();
+
+            int i = 1;
+            for (Emprunt e : usager.getEmprunts()) {
+                writer.println(i + ". "
+                        + e.getExemplaire().getLivre().getTitre()
+                        + " (retour : " + e.getDateRetour() + ")");
+                i++;
+            }
+
+            writer.println("==========================");
+            writer.close();
+
+            System.out.println("Reçu sauvegardé dans : " + nomFichier);
+
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'enregistrement du reçu : " + e.getMessage());
+        }
     }
 }
