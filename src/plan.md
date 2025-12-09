@@ -1,194 +1,91 @@
-1. Objectif général
+1. Architecture du projet
+Le projet est structuré en trois couches :
+/model
+•	Livre.java
+•	Exemplaire.java
+•	Usager.java
+•	Emprunt.java
+•	Catalogue.java
+/service
+•	AuthService.java
+•	EmpruntService.java
+•	CatalogueLoader.java
+/ui
+•	UIConsole.java
+•	Main.java
 
-Implémenter en Java un système simplifié de borne de prêt en libre-service permettant :
-
-l’authentification d’un usager,
-
-la lecture manuelle de codes RFID,
-
-la validation de disponibilité des exemplaires,
-
-l’enregistrement des emprunts,
-
-la génération d’un reçu,
-
-le chargement du catalogue à partir d’un fichier Excel/CSV.
-
-Le développement doit respecter les principes de modélisation enseignés (diagramme de classes, DSS, cas d’utilisation détaillés).
-
-2. Architecture prévue
-
-Le projet sera structuré en trois couches :
-
-2.1 Couche Modèle (model)
-
-Représentation des objets métiers :
-
-Livre
-
-Exemplaire
-
-Usager
-
-Emprunt
-
-Catalogue
-
-2.2 Couche Service (service)
-
-Logique applicative :
-
-AuthService
-
-EmpruntService
-
-CatalogueLoader
-
-2.3 Couche Présentation (ui)
-
-Interface console simplifiée :
-
-Main
-
-UIConsole
-
-3. Plan de développement (3 phases)
-
-Les tâches sont réparties de manière progressive pour permettre le développement et les tests en parallèle.
-
-Phase 1 – Mise en place du projet et chargement du catalogue
-
-Objectif : le système démarre et charge les données.
-
+2. Sprint 1  Structure et chargement du catalogue
+Objectif : permettre au système de démarrer et de charger les données du catalogue.
 Tâches :
+•	Créer les classes Livre, Exemplaire et Catalogue.
+•	Définir le format du fichier de données (CSV recommandé).
+•	Implémenter CatalogueLoader pour lire le fichier CSV.
+•	Créer les objets Livre et Exemplaire à partir des lignes du fichier.
+•	Ajouter les objets au Catalogue.
+•	Afficher un message de validation : « Catalogue chargé : X livres, Y exemplaires ».
+Choix technique :
+•	Utilisation d’un fichier CSV converti depuis Excel (plus simple et plus robuste que la lecture directe d’un fichier Excel).
+Format CSV recommandé :
+RFID;Titre;Auteur;Edition;DateParution;Pages
+123456;La peste;Albert Camus;Gallimard;1947;336
+789012;Les misérables;Victor Hugo;Folio Junior;2011;291
 
-Créer la structure du projet (packages model, service, ui).
-
-Implémenter les classes du modèle : Livre, Exemplaire, Catalogue.
-
-Définir le format du fichier de données (Excel ou CSV).
-
-Implémenter CatalogueLoader (lecture des données + instanciation des objets).
-
-Tester l'affichage du catalogue chargé (nombre de livres, exemplaires).
-
-Livrable :
-
-Catalogue fonctionnel et chargé automatiquement au démarrage.
-
-Phase 2 – Authentification et logique d’emprunt
-
-Objectif : un usager peut se connecter et emprunter des exemplaires.
-
+3. Sprint 2  Authentification et boucle d’emprunt
+Objectif : permettre à un usager de se connecter et d’emprunter des exemplaires.
 Tâches :
+•	Créer la classe Usager avec les comptes de test Jean et Jeanne.
+•	Implémenter AuthService pour vérifier le numéro de compte et le NIP.
+•	Implémenter EmpruntService pour gérer la logique d’emprunt.
+•	Ajouter la méthode emprunter(String rfid, Usager u).
+•	Vérifier la disponibilité d’un exemplaire.
+•	Créer un objet Emprunt et calculer la date de retour.
+•	Associer l’emprunt à l’usager et mettre à jour l’état de l’exemplaire.
+•	Implémenter la boucle de saisie du RFID dans l’interface console.
+•	Terminer la saisie des emprunts avec le code 000000.
+Points à valider :
+•	Localisation correcte de l’exemplaire dans le catalogue.
+•	Contrôle de disponibilité.
+•	Création de l’emprunt.
+•	Calcul et enregistrement de la date de retour.
+•	Mise à jour des données de l’usager.
 
-Implémenter la classe Usager (compte, NIP, emprunts).
-
-Créer AuthService (vérification du compte + NIP).
-
-Implémenter EmpruntService :
-
-valider la disponibilité d’un exemplaire,
-
-enregistrer l’emprunt,
-
-calculer la date de retour,
-
-associer l’emprunt à l’usager.
-
-Implémenter la boucle de saisie du RFID dans l’interface console.
-
-Tester différents scénarios d’emprunt.
-
-Livrable :
-
-Un usager peut s'authentifier et emprunter un ou plusieurs exemplaires.
-
-Phase 3 – Finalisation du système
-
-Objectif : rendre le prototype utilisable du début à la fin.
-
+4. Sprint 3  Finalisation et génération du reçu
+Objectif : compléter le cas d’utilisation « Emprunter documents ».
 Tâches :
+•	Générer un reçu listant les exemplaires empruntés.
+•	Afficher le reçu dans la console ou le sauvegarder dans un fichier texte.
+•	Nettoyer et structurer le code final.
+•	Tester le système avec un emprunt simple.
+•	Tester le système avec plusieurs emprunts.
+•	Produire le fichier exécutable .jar dans le dossier dist.
 
-Générer un reçu (affiché dans la console ou écrit dans fichier texte).
-
-Ajouter la gestion des erreurs (RFID invalide, exemplaire déjà emprunté).
-
-Nettoyer le code (organisation, commentaires).
-
-Créer la classe Main avec le flux complet :
-
-démarrage → chargement → login → emprunts → reçu.
-
-Générer la version distribuable (.jar).
-
-Livrables :
-
-Reçu fonctionnel.
-
-Version finale prête à l'exécution.
-
-Jar dans le dossier /dist.
-
-4. Répartition des responsabilités (équipe de 4)
-Ramatoulaye ( lead ) : Cas d’utilisation, DSS, diagramme de classes.
-Abdoulaye Soumah : Implémentation des services principaux (authentification, emprunts, logique globale).
-
-Chérif : Support au développement, tests unitaires simples, interface console.
-
-Billy : Rapport final, packaging du projet, génération du .jar, ZIP final.
-
-5. Règles Git et workflow
-
-Une branche principale : main
-
-Une branche de développement : develop
-
-Branches par fonctionnalité :
-
-feature/catalogue
-
-feature/auth
-
-feature/emprunt
-
-feature/ui
-
-Chaque branche doit :
-
-contenir une description courte et technique (pull request),
-
-être révisée par un autre membre avant fusion.
+5. Gestion des fichiers de données
+Décisions :
+•	Le fichier Excel est conservé pour la documentation.
+•	Le code Java utilise un fichier CSV pour faciliter le chargement.
+Avantages du CSV :
+•	Lecture plus simple et plus rapide.
+•	Aucun besoin de librairie externe.
+•	Moins d’erreurs liées au format.
 
 6. Tests à effectuer
+Les tests suivants doivent être réalisés avant la livraison finale :
+•	Chargement du catalogue au démarrage.
+•	Authentification valide.
+•	Authentification invalide.
+•	Lecture d’un RFID valide.
+•	Lecture d’un RFID inexistant.
+•	Lecture d’un RFID déjà emprunté.
+•	Emprunt d’un seul exemplaire.
+•	Emprunt de plusieurs exemplaires successifs.
+•	Vérification du reçu généré.
 
-Démarrage du système : catalogue chargé.
+7. Organisation Git
+Branches recommandées :
+•	main
+•	develop
+•	feature/catalogue-loader
+•	feature/auth
+•	feature/emprunt
+•	feature/ui
 
-Connection correcte + incorrecte.
-
-RFID valide, invalide.
-
-Emprunt d'un exemplaire disponible.
-
-Emprunt d’un exemplaire déjà emprunté.
-
-Emprunt multiple (2 exemplaires).
-
-Génération du reçu.
-
-7. Livraison finale
-
-Le dépôt GitHub doit contenir :
-
-/docs : cas d’utilisation, DSS, diagramme de classes
-
-/src : code source Java
-
-/data : catalogue Excel/CSV
-
-/dist : fichier .jar final
-
-README (plan d’action + instructions d’exécution)
-
-La version finale sera compressée dans un fichier nommé :
-INF1163_Projet_Equipe_X.zip
