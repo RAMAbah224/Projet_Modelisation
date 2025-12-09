@@ -1,16 +1,19 @@
 package ui;
 
 import model.Catalogue;
+import service.AuthService;
 import service.CatalogueLoader;
+import service.EmpruntService;
 
 public class Main {
     public static void main(String[] args) {
 
-        String chemin = "data/catalogue.csv";
+        Catalogue catalogue = CatalogueLoader.chargerCatalogue("data/catalogue.csv");
 
-        System.out.println("Chargement du catalogue...");
-        Catalogue catalogue = CatalogueLoader.chargerCatalogue(chemin);
+        AuthService authService = new AuthService();
+        EmpruntService empruntService = new EmpruntService();
 
-        System.out.println("Système prêt.");
+        UIConsole ui = new UIConsole(authService, empruntService, catalogue);
+        ui.lancer();
     }
 }
