@@ -2,7 +2,10 @@ package service;
 
 import model.Catalogue;
 import model.Exemplaire;
+import model.Emprunt;
 import model.Usager;
+
+import java.time.LocalDate;
 
 public class EmpruntService {
 
@@ -20,8 +23,16 @@ public class EmpruntService {
             return false;
         }
 
+        // Marquer comme emprunté
         ex.setDisponible(false);
-        usager.ajouterEmprunt(ex);
+
+        // Dates
+        LocalDate aujourdHui = LocalDate.now();
+        LocalDate dateRetour = aujourdHui.plusDays(21);
+
+        // Créer l'emprunt
+        Emprunt emprunt = new Emprunt(ex, aujourdHui, dateRetour);
+        usager.ajouterEmprunt(emprunt);
 
         System.out.println("Emprunt réussi : " + ex.getLivre().getTitre());
         return true;
