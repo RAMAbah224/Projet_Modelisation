@@ -37,7 +37,7 @@ Le dossier du projet contient les éléments suivants :
     - Fichiers de données de tests  
 
 /dist  
-    - Version finale de l’application (.jar)
+    - impression de réçu
 
 /README.txt  
     - Ce fichier expliquant la structure du projet
@@ -45,7 +45,7 @@ Le dossier du projet contient les éléments suivants :
 Membres de l'équipe et responsabilités :
 -Ramatoulaye Bah : Analyse UML, cas d’utilisation, DSS, diagramme de classes  
 - Abdoulaye Soumah : Programmation Java (logique principale de l’application)  
-- Cherif : Gestion des données (catalogue Excel, chargement des fichiers, reçus)  
+- Cherif : Interface graphique  
 - Billy : Rapport final, organisation du livrable, création du fichier .jar, préparation du ZIP final  
 
 Technologies utilisées :
@@ -54,4 +54,5 @@ Technologies utilisées :
 - Modelio (diagrammes UML)  
 - Git et GitHub (travail collaboratif)  
 - Excel ou SQLite (catalogue des documents)
+
 
